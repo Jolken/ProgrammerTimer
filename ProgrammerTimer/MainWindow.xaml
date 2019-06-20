@@ -1,0 +1,29 @@
+﻿<Window x:Class="ProgrammerTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProgrammerTimer"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="320" MinWidth="270" Height="320" Width="270">
+    <Grid>
+        <WrapPanel x:Name="wp" Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+                <Label x:Name="length1" Content="Длительность работы"/>
+                <TextBox x:Name="workTime" Height="22" TextWrapping="Wrap" Text="55" Width="20" Margin="10, 0" TextAlignment="Center"/>
+                <Label x:Name="minutes1" Content="минут"/>
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+                <Label x:Name="length2" Content="Длительность отдыха"/>
+                <TextBox x:Name="restTime" Height="22" TextWrapping="Wrap" Text="5" Width="20" Margin="10, 0" TextAlignment="Center"/>
+                <Label x:Name="minutes2" Content="минут"/>
+            </WrapPanel>
+            <WrapPanel Orientation="Vertical" VerticalAlignment="Center" Margin="20" HorizontalAlignment="Center">
+                <Button Name="launch" FontSize="15" Click="Launch_Click">Запустить таймер</Button>
+                <Label Margin="20" Name="timer" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center">00:00</Label>
+            </WrapPanel>
+            
+        </WrapPanel>
+
+    </Grid>
+</Window>

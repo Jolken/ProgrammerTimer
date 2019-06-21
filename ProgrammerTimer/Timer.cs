@@ -50,6 +50,7 @@ namespace ProgrammerTimer
         }
 
         TimerState _state = TimerState.Pause;
+        public TimerState lastState;
         public delegate void StateChange(TimerState state);
         public StateChange stateChange;
         public TimerState State
@@ -57,6 +58,7 @@ namespace ProgrammerTimer
             get { return _state; }
             set
             {
+                lastState = _state;
                 _state = value;
                 stateChange?.Invoke(value);
             }
@@ -71,14 +73,17 @@ namespace ProgrammerTimer
         {
             stateChange += (TimerState state) =>
             {
-                switch (state)
+                if (lastState != TimerState.Pause)
                 {
-                    case TimerState.Work:
-                        Time = Work;
-                        break;
-                    case TimerState.Rest:
-                        Time = Rest;
-                        break;
+                    switch (state)
+                    {
+                        case TimerState.Work:
+                            Time = Work;
+                            break;
+                        case TimerState.Rest:
+                            Time = Rest;
+                            break;
+                    }
                 }
             };
         }

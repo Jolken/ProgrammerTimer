@@ -5,21 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgrammerTimer"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="320" MinWidth="270" Height="320" Width="270">
+        Title="MainWindow" MinHeight="350" MinWidth="300" Height="350" Width="234.264">
     <Grid>
         <WrapPanel x:Name="wp" Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Margin="0">
             <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
                 <Label x:Name="length1" Content="Длительность работы"/>
-                <TextBox x:Name="workTime" Height="22" TextWrapping="Wrap" Text="55" Width="20" Margin="10, 0" TextAlignment="Center"/>
+                <TextBox x:Name="workTime" Height="22" TextWrapping="Wrap" Text="50" Width="20" Margin="10, 0" TextAlignment="Center" TextChanged="WorkTime_TextChanged"/>
                 <Label x:Name="minutes1" Content="минут"/>
             </WrapPanel>
             <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
                 <Label x:Name="length2" Content="Длительность отдыха"/>
-                <TextBox x:Name="restTime" Height="22" TextWrapping="Wrap" Text="5" Width="20" Margin="10, 0" TextAlignment="Center"/>
+                <TextBox x:Name="restTime" Height="22" TextWrapping="Wrap" Text="10" Width="20" Margin="10, 0" TextAlignment="Center"/>
                 <Label x:Name="minutes2" Content="минут"/>
             </WrapPanel>
+            <Button Name="apply" FontSize="15" Click="Apply_Click">Применить настройки</Button>
             <WrapPanel Orientation="Vertical" VerticalAlignment="Center" Margin="20" HorizontalAlignment="Center">
-                <Button Name="launch" FontSize="15" Click="Launch_Click">Запустить таймер</Button>
+                <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <Button Name="launch" FontSize="15" Click="Launch_Click">Старт</Button>
+                    <Button Name="pause" FontSize="15" Click="Pause_Click" Margin="20,0,0,0" IsEnabled="False">Пауза</Button>
+                </WrapPanel>
                 <Label Margin="20" Name="timer" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center">00:00</Label>
             </WrapPanel>
             

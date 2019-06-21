@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProgrammerTimer.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProgrammerTimer"
+        mc:Ignorable="d"
+        Title="Window1" Height="300" Width="400">
+    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+        <Label x:Name="label1" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center">Самое время</Label>
+        <Label x:Name="labelState" HorizontalAlignment="Center" FontSize="50">Отдохнуть</Label>
+    </WrapPanel>
+
+</Window>

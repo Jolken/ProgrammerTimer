@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ExtesionsMethods;
 
 
@@ -30,29 +20,20 @@ namespace ProgrammerTimer
             mainTimer = new MainTimer();
             InitializeComponent();
             Task.Run(() => mainTimer.MainLoop());
+
+            workMinutes = workTime.Text.ToInt();
+            restMinutes = restTime.Text.ToInt();
+            mainTimer.Work = new TimeSpan(0, workMinutes.Value, 0);
+            mainTimer.Rest = new TimeSpan(0, restMinutes.Value, 0);
+
             mainTimer.timeChange += UpdateTime;
+
             mainTimer.stateChange += UpdateColors;
             mainTimer.stateChange += AlertStateChange;
         }
 
 
 
-        private async void Launch_Click(object sender, RoutedEventArgs e)
-        {
-            workMinutes = workTime.Text.ToInt();
-            restMinutes = restTime.Text.ToInt();
-
-            if (workMinutes == null || restMinutes == null)
-            {
-                MessageBox.Show("Введите числа в поля со временем", "Ошибка установки времени");
-                return;
-            }
-
-            mainTimer.Work = new TimeSpan(0, workMinutes.Value, 0);
-            mainTimer.Rest = new TimeSpan(0, restMinutes.Value, 0);
-
-            mainTimer.State = TimerState.Work;
-        }
 
         private void UpdateTime(TimeSpan time)
         {
@@ -90,7 +71,66 @@ namespace ProgrammerTimer
         }
         private void AlertStateChange(TimerState state)
         {
-            return;
+            if (mainTimer.lastState == TimerState.Pause || mainTimer.State == TimerState.Pause)
+                return;
+            Dispatcher.InvokeAsync(async() =>
+            {
+                Window1 window = new Window1();
+                if (mainTimer.State == TimerState.Work)
+                {
+                    await window.SetStateText(System.Drawing.Color.DarkRed, "Работать");
+                }
+                else
+                {
+                    await window.SetStateText(System.Drawing.Color.DarkGreen, "Отдохнуть");
+                }
+            });
+            
+
+        }
+
+        private async void Pause_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainTimer.State != TimerState.Pause)
+            {
+                mainTimer.State = TimerState.Pause;
+                pause.Content = "Возобновить";
+            }
+            else
+            {
+                mainTimer.State = mainTimer.lastState;
+                pause.Content = "Пауза";
+            }
+            
+            
+        }
+
+        private async void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            workMinutes = workTime.Text.ToInt();
+            restMinutes = restTime.Text.ToInt();
+
+            if (workMinutes == null || restMinutes == null)
+            {
+                MessageBox.Show("Введите числа в поля со временем", "Ошибка установки времени");
+                return;
+            }
+
+            mainTimer.Work = new TimeSpan(0, workMinutes.Value, 0);
+            mainTimer.Rest = new TimeSpan(0, restMinutes.Value, 0);
+        }
+        private async void Launch_Click(object sender, RoutedEventArgs e)
+        {
+            mainTimer.State = TimerState.Work;
+            mainTimer.Time = mainTimer.Work;
+
+            launch.Content = "Рестарт";
+            pause.IsEnabled = true;
+        }
+
+        private void WorkTime_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }
